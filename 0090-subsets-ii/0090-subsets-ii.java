@@ -1,6 +1,7 @@
 class Solution {
     private void uniqueSubsets(int idx,int[] a, List<List<Integer>> ans, List<Integer> ds){
         ans.add(new ArrayList<>(ds));
+            
         
         for(int i=idx;i<a.length;i++){
             if(i>idx && a[i]==a[i-1]) continue;
