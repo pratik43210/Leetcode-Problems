@@ -1,7 +1,7 @@
 class Solution {
     public int maxSubArray(int[] nums) {
         // Initialize sum to 0, and maxi to the smallest possible value
-        int sum = 0, maxi = Integer.MIN_VALUE;
+        int sum = 0, maxi = nums[0];
 
         // Iterate over the array
         for (int i = 0; i < nums.length; i++) {
