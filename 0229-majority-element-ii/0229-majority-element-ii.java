@@ -1,22 +1,35 @@
 class Solution {
     public List<Integer> majorityElement(int[] nums) {
-        //NOTE: At max only two numbers can exist which occur more than floor of n/3 times
         int n=nums.length;
         int mini=(int)(n/3)+1;
-        Map<Integer,Integer> map=new HashMap<>();
+        int cnt1=0,cnt2=0,el1=Integer.MIN_VALUE,el2=Integer.MIN_VALUE;
         List<Integer> ls=new ArrayList<>();
         
         for(int i=0;i<n;i++){
-            int value=map.getOrDefault(nums[i],0);
-            map.put(nums[i], value+1);
-            
-            //we don't have to worry about reapeating values because we
-            //add a value to list only once when occurence=mini
-            if(map.get(nums[i])==mini) ls.add(nums[i]);
-            
-            //if list has got 2 elements, we break the loop
-            if(ls.size()==2) break;
+            if(cnt1==0 && nums[i]!=el2){
+                cnt1++;
+                el1=nums[i];
+            }else if(cnt2==0 && nums[i]!=el1){
+                cnt2++;
+                el2=nums[i];
+            }else if(nums[i]==el1){
+                cnt1++;
+            }else if(nums[i]==el2){
+                cnt2++;
+            }else{
+                cnt1--;
+                cnt2--;
+            }
         }
+        
+        cnt1=0;cnt2=0;
+        for(int i=0;i<n;i++){
+            if(nums[i]==el1) cnt1++;
+            if(nums[i]==el2) cnt2++;
+        }
+        
+        if(cnt1>=mini) ls.add(el1);
+        if(cnt2>=mini) ls.add(el2);
         
         return ls;
     }
