@@ -1,17 +1,19 @@
 class Solution {
-    public int countPaths(int i, int j, int m, int n, int[][] dp){
-        if(i==m-1 && j==n-1) return 1;
-        if(i>=m || j>=n) return 0;
-        if(dp[i][j]!=-1) return dp[i][j];
-        return dp[i][j]=countPaths(i+1,j,m,n,dp)+countPaths(i,j+1,m,n,dp);
-    }
     public int uniquePaths(int m, int n) {
-        int[][] dp=new int[m][n];
-        for(int i=0;i<m;i++){
-            for(int j=0;j<n;j++){
-                dp[i][j]=-1;
-            }
+        //we start at 0,0 so, possible steps in right = m-1
+        //possible steps in downward direction = n-1
+        //total number of possible steps
+        int N = m+n-2;
+        // we can either find total combination by finding
+        //nCr for the n-1 right paths or m-1 down paths
+        int r= m-1;
+        
+        double res=1;
+        
+        for(int i=1;i<=r;i++){
+            res=res*(N-r+i)/i;
         }
-        return countPaths(0,0,m,n,dp);
+        
+        return (int)res;
     }
 }
