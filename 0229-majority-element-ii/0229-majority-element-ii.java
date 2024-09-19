@@ -10,6 +10,8 @@ class Solution {
             int value=map.getOrDefault(nums[i],0);
             map.put(nums[i], value+1);
             
+            //we don't have to worry about reapeating values because we
+            //add a value to list only once when occurence=mini
             if(map.get(nums[i])==mini) ls.add(nums[i]);
             
             //if list has got 2 elements, we break the loop
