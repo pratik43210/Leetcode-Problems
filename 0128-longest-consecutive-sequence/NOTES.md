@@ -1,35 +1,3 @@
-}
-​
-**Explanation:**
-​
-Your solution for finding the length of the longest consecutive sequence in an unsorted array is mostly correct. It works by sorting the array and counting consecutive numbers. However, sorting the array takes O(nlogn), and there’s a more efficient approach that runs in O(n) using a HashSet.
-​
-**Issues with the current approach:**
-Handling duplicates: When the array contains duplicates, it can miscalculate the length of the sequence.
-**Time complexity:**
-Sorting the array takes O(nlogn), but this problem can be solved in O(n).
-Here’s an optimized solution using a HashSet with O(n) time complexity, which handles duplicates and unordered input efficiently:
-​
-**Optimal Approach**
-​
-class Solution {
-public int longestConsecutive(int[] a) {
-int n = a.length;
-if (n == 0)
-return 0;
-​
-int longest = 1;
-Set<Integer> set = new HashSet<>();
-​
-// put all the array elements into set
-for (int i = 0; i < n; i++) {
-set.add(a[i]);
-}
-​
-// Find the longest sequence
-for (int it : set) {
-// if 'it' is a starting number
-if (!set.contains(it - 1)) {
 // find consecutive numbers
 int cnt = 1;
 int x = it;
@@ -40,3 +8,20 @@ cnt = cnt + 1;
 longest = Math.max(longest, cnt);
 }
 }
+return longest;
+}
+}
+​
+**Key Steps:**
+**Insert Elements into a Set:**
+You first insert all the elements from the array into a HashSet to eliminate duplicates and allow for O(1) lookups.
+**Identifying Starting Points:**
+For each element in the set, you check if it is the start of a sequence by ensuring that it - 1 is not present in the set.
+**Counting Consecutive Numbers:**
+If the current number is the start of a sequence, you incrementally check for the next consecutive numbers (i.e., it + 1, it + 2, etc.) and count how many consecutive numbers exist.
+**Updating the Longest Sequence:**
+After finding the length of a consecutive sequence, you update the longest variable if this sequence is the longest one encountered so far.
+**Time Complexity:**
+Inserting into the HashSet: Takes O(n) time.
+Iterating and Checking Consecutive Numbers: Each number is processed at most twice (once when checking for the start of a sequence and again when traversing a sequence), so this part also takes O(n) time.
+Thus, the overall time complexity is O(n).
