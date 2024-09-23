@@ -1,24 +1,6 @@
-for (int l = k + 1; l < n; l++) {
-// taking bigger data type
-// to avoid integer overflow:
-long sum = (long)nums[i] + nums[j];
-sum += nums[k];
-sum += nums[l];
+}
+**Better Approach**
 ​
-if (sum == target) {
-List<Integer> temp = Arrays.asList(nums[i], nums[j], nums[k], nums[l]);
-Collections.sort(temp);
-set.add(temp);
-}
-}
-}
-}
-}
-List<List<Integer>> ans = new ArrayList<>(set);
-return ans;
-}
-**Better Solution**
-**Optimal Approach**
 public static List<List<Integer>> fourSum(int[] nums, int target) {
 int n = nums.length; // size of the array
 Set<List<Integer>> st = new HashSet<>();
@@ -51,5 +33,7 @@ List<List<Integer>> ans = new ArrayList<>(st);
 return ans;
 }
 ​
+**Optimal Approach*
+*
 ​
 ​
