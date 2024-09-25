@@ -4,16 +4,11 @@ class Solution {
         if(n==0) return 0;
         int longest=1;
         int l=0,r=0;
-        Set<Character> st=new HashSet<>();
+        Map<Character,Integer> mpp=new HashMap<>();
 
         while(r<n){
-            if(st.contains(s.charAt(r))){
-                while(l<r && st.contains(s.charAt(r))){
-                    st.remove(s.charAt(l));
-                    l++;
-                }
-            }
-            st.add(s.charAt(r));
+            if(mpp.containsKey(s.charAt(r))) l=Math.max(l,mpp.get(s.charAt(r))+1);
+            mpp.put(s.charAt(r),r);
             longest=Math.max(longest,r-l+1);
             r++;
         }
