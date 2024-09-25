@@ -3,20 +3,19 @@ class Solution {
         int n=s.length();
         if(n==0) return 0;
         int longest=1;
-        int i=0,j=0;
+        int l=0,r=0;
         Set<Character> st=new HashSet<>();
 
-        while(j<n){
-            if(st.contains(s.charAt(j))){
-                longest=Math.max(longest,j-i);
-                st.clear();
-                i++;
-                j=i;
-            }else if(j==n-1){
-                longest=Math.max(longest,j-i+1);
+        while(r<n){
+            if(st.contains(s.charAt(r))){
+                while(l<r && st.contains(s.charAt(r))){
+                    st.remove(s.charAt(l));
+                    l++;
+                }
             }
-            st.add(s.charAt(j));
-            j++;            
+            st.add(s.charAt(r));
+            longest=Math.max(longest,r-l+1);
+            r++;
         }
         return longest;
     }
