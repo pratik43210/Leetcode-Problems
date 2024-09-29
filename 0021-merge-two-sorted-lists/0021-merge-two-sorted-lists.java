@@ -10,55 +10,38 @@
  */
 class Solution {
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
-        ListNode h1=list1;
-        ListNode h2=list2;
         
-        ListNode nd=new ListNode();
-        if(list1==null && list2==null){
-            return list1;
-        }else if(list1==null){
+        if(list1==null){
             return list2;
-        }else if(list2==null){
+        }
+        if(list2==null){
             return list1;
         }
         
-        if(h1.val<=h2.val){
-            nd.val=h1.val;
-            h1=h1.next;
-        }else{
-            nd=h2;
-            h2=h2.next;
-        }
+        
+        ListNode nd=new ListNode(0);
+        ListNode curr=nd;
         
         
-        ListNode start=nd;
-        
-        while(h1!=null && h2!=null){
-            if(h1.val<=h2.val){
-                nd.next=h1;
-                nd=nd.next;
-                h1=h1.next;
+        while(list1!=null && list2!=null){
+            if(list1.val<=list2.val){
+                curr.next=list1;
+                list1=list1.next;
             }else{
-                nd.next=h2;
-                nd=nd.next;
-                h2=h2.next;
+                curr.next=list2;
+                list2=list2.next;
             }
+            curr=curr.next;
         }
         
-        while(h1!=null){
-            nd.next=h1;
-                nd=nd.next;
-            h1=h1.next;
+        if(list1!=null){
+            curr.next=list1;
         }
         
-        while(h2!=null){
-            nd.next=h2;
-            nd=nd.next;
-            h2=h2.next;
+        if(list2!=null){
+            curr.next=list2;
         }
         
-        nd=null;
-        
-        return start;
+        return nd.next;
     }
 }
