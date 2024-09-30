@@ -9,39 +9,24 @@
  * }
  */
 class Solution {
-    public static int getSize(ListNode head){
-        int size=0;
-        
-        ListNode curr=head;
-        
-        while(curr!=null){
-            size++;
-            curr=curr.next;
-        }
-        
-        return size;
-    }
     public ListNode removeNthFromEnd(ListNode head, int n) {
         ListNode dummy=new ListNode(0);
+        //we will return dummy.next in the end
         dummy.next=head;
-        ListNode t=dummy;
-        ListNode curr=dummy;
-        int s=getSize(head);
+        //we point another node t to dummy and use this to iterate over the linked list
+        ListNode f=dummy;
+        ListNode s=dummy;
         
-        if(s==1){
-            return null;
+        for(int i=1;i<=n;i++){
+            f=f.next;
         }
         
-        n=s-n+1;
-        int count=1;
-        
-        while(count<=n){
-            t=curr;
-            curr=curr.next;
-            count++;
+        while(f.next!=null){
+            f=f.next;
+            s=s.next;
         }
         
-        t.next=curr.next;
+        s.next=s.next.next;
         
         return dummy.next;
     }
