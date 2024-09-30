@@ -10,14 +10,14 @@
  * }
  */
 public class Solution {
-    public static int getDifference(ListNode head1,ListNode head2) {
+    public static int getDifference(ListNode headA,ListNode headB) {
      int len1 = 0,len2 = 0;
-        while(head1 != null || head2 != null) {
-            if(head1 != null) {
-                ++len1; head1 = head1.next;
+        while(headA != null || headB != null) {
+            if(headA != null) {
+                ++len1; headA = headA.next;
             }
-            if(head2 != null) {
-                ++len2; head2 = head2.next;
+            if(headB != null) {
+                ++len2; headB = headB.next;
             }
             
         }
