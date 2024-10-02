@@ -32,14 +32,14 @@ class Solution {
     public boolean isPalindrome(ListNode head) {
         if(head==null || head.next==null) return true;
         
+        ListNode start=head;
         ListNode mid=findMiddle(head);
-        ListNode start1=head;
-        ListNode start2=reverseList(mid);
+        mid=reverseList(mid);
         
-        while(start2!=null){
-            if(start1.val!=start2.val) return false;
-            start1=start1.next;
-            start2=start2.next;
+        while(mid!=null){
+            if(start.val!=mid.val) return false;
+            start=start.next;
+            mid=mid.next;
         }
         
         return true;
