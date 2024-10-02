@@ -9,118 +9,77 @@
  * }
  */
 class Solution {
-    static ListNode reverseLinkedList(ListNode head) {
-        // Initialize'temp' at
-        // head of linked list
-        ListNode temp = head;  
-   
-       // Initialize pointer 'prev' to NULL,
-       // representing the previous node
-       ListNode prev = null;  
-       
-       // Traverse the list, continue till
-       // 'temp' reaches the end (NULL)
-       while(temp != null){  
-           // Store the next node in
-           // 'front' to preserve the reference
-           ListNode front = temp.next;  
-           
-           // Reverse the direction of the
-           // current node's 'next' pointer
-           // to point to 'prev'
-           temp.next = prev;  
-           
-            // Move 'prev' to the current
-            // node for the next iteration
-           prev = temp;  
-           
-            // Move 'temp' to the 'front' node
-            // advancing the traversal
-           temp = front; 
-       }
-       
-       // Return the new head of
-       // the reversed linked list
-       return prev;  
-
-    }
-    static ListNode getKthNode(ListNode temp, int k) {
-        // Decrement K as we already
-        // start from the 1st node
-        k -= 1;
+    static ListNode reverseList(ListNode list){
+        //points to current node
+        ListNode curr=list;
+        //points to previous node (in the beginning null)
+        ListNode prev=null;
         
-        // Decrement K until it reaches
-        // the desired position
-        while (temp != null && k > 0) {
-            // Decrement k as temp progresses
-            k--;
-            
-            // Move to the next node
-            temp = temp.next;
+        while(curr!=null){
+            //store the node next to curr
+            ListNode front=curr.next;
+            //point curr to previous node
+            curr.next=prev;
+            //update prev to curr
+            prev=curr;
+            //move curr to front
+            curr=front;
         }
-        
-        // Return the Kth node
+        return prev;
+    }
+    static ListNode findKthNode(ListNode temp, int k){
+        //to get to kth node, we have to move by k-1 steps
+        k--;
+        //loop till k=0 or temp=null in which case group won't be formed
+        while(temp!=null && k!=0){
+            temp=temp.next;
+            k--;
+        }
+        //return kth node
         return temp;
     }
     public ListNode reverseKGroup(ListNode head, int k) {
-        ListNode temp = head;
-        
-        // Initialize a pointer to track the
-        // last node of the previous group
-        ListNode prevLast = null;
-        
-        // Traverse through the linked list
-        while (temp != null) {
-            
-            // Get the Kth node of the current group
-            ListNode kThNode = getKthNode(temp, k);
-            
-            // If the Kth node is NULL
-            // (not a complete group)
-            if (kThNode == null) {
-               
-                // If there was a previous group,
-                // link the last node to the current node
-                if (prevLast != null) {
-                    prevLast.next = temp;
+        //store head in temp node for iteration
+        ListNode temp=head;
+        //create a prevLast node to keep track of last
+        //node of previous group
+        ListNode prevLast=null;
+        //loop till temp=null
+        while(temp!=null){
+            //find kth node from current node
+            ListNode kthNode=findKthNode(temp,k);
+            //if kth node is null, means group couldn't form
+            if(kthNode==null){
+                //if there was a previous group,
+                //point its last node to temp
+                if(prevLast!=null){
+                    prevLast.next=temp;
                 }
-                
-                // Exit the loop
+                //break the loop here as it no group remain
                 break;
             }
-            
-            // Store the next node
-            // after the Kth node
-            ListNode nextNode = kThNode.next;
-            
-            // Disconnect the Kth node
-            // to prepare for reversal
-            kThNode.next = null;
-            
-            // Reverse the nodes from
-            // temp to the Kth node
-            reverseLinkedList(temp);
-            
-             // Adjust the head if the reversal
-            // starts from the head
-            if (temp == head) {
-                head = kThNode;
-            } else {
-                // Link the last node of the previous
-                // group to the reversed group
-                prevLast.next = kThNode;
+            //store the next of kthNode
+            ListNode nextNode=kthNode.next;
+            //point the next of kth node to null
+            kthNode.next=null;
+            //this will reverse from temp to kth node
+            //as kthNode.next is null
+            reverseList(temp);
+            //after reversal, kth node becomes first of group
+            //if it is the first group, head should be kth node
+            if(temp==head){
+                head=kthNode;
+            }else{
+                //else point the last node in prev group to it
+                prevLast.next=kthNode;
             }
-            
-            // Update the pointer to the
-            // last node of the previous group
-            prevLast = temp;
-            
-            // Move to the next group
-            temp = nextNode;
+            //after reversal temp becomes last of current group
+            //we update the prevLast node accordingly
+            prevLast=temp;
+            //move to the next group
+            temp=nextNode;
         }
-        
-        // Return the head of the
-        // modified linked list
+        //return head
         return head;
     }
 }
