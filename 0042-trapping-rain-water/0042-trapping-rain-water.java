@@ -3,22 +3,24 @@ class Solution {
         int n=height.length;
         int total=0;
         
-        int[] prefixMax=new int[n];
-        int[] suffixMax=new int[n];
-        prefixMax[0]=height[0];
-        suffixMax[n-1]=height[n-1];
+        int lmax=0,rmax=0;
+        int l=0,r=n-1;
         
-        for(int i=1;i<n;i++){
-            prefixMax[i]=Math.max(prefixMax[i-1],height[i]);
-            suffixMax[n-i-1]=Math.max(suffixMax[n-i],height[n-i-1]);
-        }
-        
-        for(int i=0;i<n;i++){
-            int leftMax=prefixMax[i];
-            int rightMax=suffixMax[i];
-            
-            if(height[i]<leftMax && height[i]<rightMax){
-                total+=Math.min(leftMax,rightMax)-height[i];
+        while(l<r){
+            if(height[l]<=height[r]){
+                if(height[l]>=lmax){
+                    lmax=height[l];
+                }else{
+                    total+=lmax-height[l];
+                }
+                l++;
+            }else{
+                if(height[r]>=rmax){
+                    rmax=height[r];
+                }else{
+                    total+=rmax-height[r];
+                }
+                r--;
             }
         }
         
