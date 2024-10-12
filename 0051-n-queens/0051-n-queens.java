@@ -64,7 +64,9 @@ class Solution {
         List<List<String>> allBoards=new ArrayList<>();
         //this array will act as our board
         char[][] board=new char[n][n];
+        //call helper function to solve
         helper(board,allBoards,0);
+        //return result
         return allBoards;
     }
 }
