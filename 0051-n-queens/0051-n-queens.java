@@ -38,7 +38,7 @@ class Solution {
         allBoards.add(boardEl);
     }
     private static void helper(char[][] board, List<List<String>> allBoards, int col){
-        //if we have completed till last column, that means we
+        //if we have completed till last column, that means we have
         //found a solution, so we add the current board to allBoards
         if(col==board[0].length){
             saveBoard(board,allBoards);
