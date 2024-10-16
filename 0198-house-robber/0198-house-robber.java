@@ -11,7 +11,7 @@ class Solution {
         //we go to current-2 index
         int pick=nums[n] + robHouse(nums,n-2,dp);
         
-        int notPick=0 + robHouse(nums,n-1,dp);
+        int notPick=robHouse(nums,n-1,dp);
         
         return dp[n]=Math.max(pick,notPick);
     }
