@@ -1,29 +1,23 @@
 class Solution {
     public int rob(int[] nums) {
         int n=nums.length;
-        int[] dp= new int[n];
-        dp[0]=nums[0];
+        if(n==1) return nums[0];
+        if(n==2) return Math.max(nums[0],nums[1]);
         
-        //we already have dp[0] and leave will account for it
-        //when calculating dp[1] so we start loopinf from 1
+        int prev2=0;
+        int prev=nums[0];
+        
         for(int i=1;i<n;i++){
-            //nums[i] will be the amount robbed in current house
-            int take=nums[i];
+            int take=nums[i]+prev2;
             
-            //dp[i-2] is the maximun amount robbed till i-2
-            //since we rob current house, we leave i-1(adjacent)
-            //so we take max amount robbed till i-2
-            if(i>1) take+=dp[i-2];
+            int leave=prev;
             
-            //dp[i-1] is maximum amount robbed till i-1
-            //we left current so we consider max till i-1
-            int leave=dp[i-1];
-            
-            //max amount robbed till current house
-            dp[i]=Math.max(take,leave);
+            int curr=Math.max(take,leave);
+            prev2=prev;
+            prev=curr;
         }
         
         
-        return dp[n-1];
+        return prev;
     }
 }
