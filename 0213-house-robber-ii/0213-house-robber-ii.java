@@ -19,11 +19,11 @@ class Solution {
     }
     public int rob(int[] nums) {
         int n=nums.length;
-        int[] arr1=new int[n];
-        int[] arr2=new int[n];
-        
         if(n==1)
             return nums[0];
+        
+        int[] arr1=new int[n];
+        int[] arr2=new int[n];
         
         for(int i=0;i<n;i++){
             if(i!=0) arr1[i]=nums[i];
