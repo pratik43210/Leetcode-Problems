@@ -1,21 +1,29 @@
 class Solution {
-    static int f(int i, int j, int[][] dp){
-        if(i==0 && j==0) return 1;
-        if(i<0||j<0) return 0;
-        
-        if(dp[i][j]!=-1) return dp[i][j];
-        
-        int left=f(i,j-1,dp);
-        int up=f(i-1,j,dp);
-        
-        return dp[i][j]=up+left;
-    }
     public int uniquePaths(int m, int n) {
-        int i=m-1,j=n-1;
-        int[][] dp=new int[m][n];
-        for (int[] row : dp){
-            Arrays.fill(row, -1);
+        int[] prev=new int[m];
+        
+        for(int i=0;i<m;i++){
+            int[] temp=new int[n];
+            for(int j=0;j<n;j++){
+                if (i == 0 && j == 0) {
+                    temp[j] = 1;
+                    continue;
+                }
+                
+                int up=0,left=0;
+                if(i>0){
+                    up=prev[j];
+                }
+                if(j>0){
+                    left=temp[j-1];
+                }
+                
+                temp[j]=up+left;
+            }
+            
+            prev=temp;
         }
-        return f(i,j,dp);
+        
+        return prev[n-1];
     }
 }
