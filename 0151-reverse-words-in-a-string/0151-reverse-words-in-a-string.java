@@ -1,6 +1,7 @@
 class Solution {
     public String reverseWords(String s) {
         //split string into an array words(use " " space as breakpoint)
+        //" +" regex for one or more spaces
         String[] str=s.split(" +");
         int i=0;
         int j=str.length-1;
